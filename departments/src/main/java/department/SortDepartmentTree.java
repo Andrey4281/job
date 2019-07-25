@@ -2,6 +2,10 @@ package department;
 
 import java.util.LinkedList;
 
+/**This is implementation of SortDepartment on base Trees
+ * @author andreysemenov
+ * @since 24.07.2019
+ */
 public class SortDepartmentTree implements SortDepartment {
     private final NodeOfTree root;
 
@@ -22,16 +26,18 @@ public class SortDepartmentTree implements SortDepartment {
         }
     }
 
-    public String[] sortUp() {
+    public LinkedList <String> sortUp() {
         LinkedList <String> list = new LinkedList<>();
         sortUpRec(list,root);
-
-        double a = 5;
-        return (String[]) list.toArray();
+        list.removeFirst();
+        return list;
     }
 
-    public String[] sortDown() {
-        return new String[0];
+    public LinkedList <String> sortDown() {
+        LinkedList <String> list = new LinkedList<>();
+        sortDownRec(list,root);
+        list.removeFirst();
+        return list;
     }
 
     private LinkedList <String> getNodesFromCode(String code)
@@ -46,16 +52,33 @@ public class SortDepartmentTree implements SortDepartment {
         return nodes;
     }
 
-    private void sortUpRec(LinkedList <String> sortCodes, NodeOfTree ro)
+    private void sortUpRec(LinkedList <String> sortCodes, NodeOfTree topOfTree)
     {
-        sortCodes.add(ro.getCode());
-        if (ro.isLeaf()) return;
+        sortCodes.add(topOfTree.getCode());
+        if (topOfTree.isLeaf()) return;
         else {
-            NodeOfTree current = ro.setPointerIntoFirstChild();
+            NodeOfTree current = topOfTree.setPointerIntoFirstChild();
             while (true)
             {
                 sortUpRec(sortCodes,current);
-                if (!ro.isLeaf() && ro.hasNextChild()) current = ro.movePointerOnNextChild();
+                if (topOfTree.hasNextChild())
+                    current = topOfTree.movePointerOnNextChild();
+                else break;
+            }
+        }
+    }
+
+    private void sortDownRec(LinkedList <String> sortCodes, NodeOfTree topOfTree)
+    {
+        sortCodes.add(topOfTree.getCode());
+        if (topOfTree.isLeaf()) return;
+        else {
+            NodeOfTree current = topOfTree.setPointerIntoLastChild();
+            while (true)
+            {
+                sortDownRec(sortCodes,current);
+                if (topOfTree.hasPrevChild())
+                    current = topOfTree.movePointerOnPrevChild();
                 else break;
             }
         }

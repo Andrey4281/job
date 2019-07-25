@@ -1,5 +1,9 @@
 package department;
 
+/**This is implementation of sorted strorage on base sorted list
+ * @author andreysemenov
+ * @since 25.07.2019
+ */
 public class SortedList implements SortedStrorage{
     private ElementOfSortedList firstElement;
     private ElementOfSortedList lastElement;
@@ -116,10 +120,5 @@ public class SortedList implements SortedStrorage{
     public boolean isEmpty()
     {
         return this.firstElement == null;
-    }
-
-    public String getCodeOfPointer()
-    {
-        return pointer.getKey().getCode();
     }
 }

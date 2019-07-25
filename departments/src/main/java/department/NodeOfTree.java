@@ -1,5 +1,10 @@
 package department;
 
+/**This is node of tree.
+ * Each node contains sorted strorage its childs
+ * @author andreysemenov
+ * @since 25.07.2019
+ */
 public class NodeOfTree {
     private final String code;
     private final SortedStrorage childs;
